@@ -1,0 +1,146 @@
+{
+  "chatId": "chat_1023",
+  "participants": ["user_1", "user_2"],
+  "messages": [
+    {
+      id: "msg_1",
+      senderId: "user_1",
+      text: "Hey!",
+     type:"text",
+      timestamp: "2026-01-23T10:00:01Z"
+    },
+    {
+      id: "msg_2",
+      senderId: "user_2",
+      text: "Hi, how are you?",
+     type:"text",
+      timestamp: "2026-01-23T10:00:10Z"
+    },
+    {
+      id: "msg_3",
+      senderId: "user_1",
+      text: "I’m good. What about you?",
+     type:"text",
+      timestamp: "2026-01-23T10:00:25Z"
+    },
+    {
+      id: "msg_4",
+      senderId: "user_2",
+      text: "Doing well 👍",
+     type:"text",
+      timestamp: "2026-01-23T10:00:40Z"
+    },
+    {
+      id: "msg_5",
+      senderId: "user_1",
+      text: "Are you free today?",
+     type:"text",
+      timestamp: "2026-01-23T10:01:05Z"
+    },
+    {
+      id: "msg_6",
+      senderId: "user_2",
+      text: "Yes, after 6 PM",
+     type:"text",
+      timestamp: "2026-01-23T10:01:30Z"
+    },
+    {
+      id: "msg_7",
+      senderId: "user_1",
+      text: "Let’s catch up then",
+     type:"text",
+      timestamp: "2026-01-23T10:01:55Z"
+    },
+    {
+      id: "msg_8",
+      senderId: "user_2",
+      text: "Sure!",
+     type:"text",
+      timestamp: "2026-01-23T10:02:10Z"
+    },
+    {
+      id: "msg_9",
+      senderId: "user_1",
+      text: "Did you finish the project?",
+     type:"text",
+      timestamp: "2026-01-23T10:02:40Z"
+    },
+    {
+      id: "msg_10",
+      senderId: "user_2",
+      text: "Almost done",
+     type:"text",
+      timestamp: "2026-01-23T10:03:00Z"
+    },
+    {
+      id: "msg_11",
+      senderId: "user_1",
+      text: "Need any help?",
+     type:"text",
+      timestamp: "2026-01-23T10:03:20Z"
+    },
+    {
+      id: "msg_12",
+      senderId: "user_2",
+      text: "Maybe with testing",
+     type:"text",
+      timestamp: "2026-01-23T10:03:45Z"
+    },
+    {
+      id: "msg_13",
+      senderId: "user_1",
+      text: "I can help later",
+     type:"text",
+      timestamp: "2026-01-23T10:04:05Z"
+    },
+    {
+      id: "msg_14",
+      senderId: "user_2",
+      text: "That would be great",
+     type:"text",
+      timestamp: "2026-01-23T10:04:30Z"
+    },
+    {
+      id: "msg_15",
+      senderId: "user_1",
+      text: "Cool 😄",
+     type:"text",
+      timestamp: "2026-01-23T10:04:50Z"
+    },
+    {
+      id: "msg_16",
+      senderId: "user_2",
+      text: "See you at 6",
+     type:"text",
+      timestamp: "2026-01-23T10:05:10Z"
+    },
+    {
+      id: "msg_17",
+      senderId: "user_1",
+      text: "See you!",
+     type:"text",
+      timestamp: "2026-01-23T10:05:25Z"
+    },
+    {
+      id: "msg_18",
+      senderId: "user_2",
+      text: "Take care",
+     type:"text",
+      timestamp: "2026-01-23T10:05:40Z"
+    },
+    {
+      id: "msg_19",
+      senderId: "user_1",
+      text: "You too 👍",
+     type:"text",
+      timestamp: "2026-01-23T10:06:00Z"
+    },
+    {
+      id: "msg_20",
+      senderId: "user_2",
+      text: "Bye!",
+     type:"text",
+      timestamp: "2026-01-23T10:06:15Z"
+    }
+  ]
+}

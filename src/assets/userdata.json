@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Johnson",
+    "email": "alice.j@example.com",
+    "photo": "https://api.dicebear.com"
+  },
+  {
+    "id": 2,
+    "name": "Bob Smith",
+    "email": "b.smith88@testmail.co",
+    "photo": "https://api.dicebear.com"
+  },
+  {
+    "id": 3,
+    "name": "Catherine Lee",
+    "email": "clee@demo.org",
+    "photo": "https://api.dicebear.com"
+  },
+  {
+    "id": 4,
+    "name": "David Brown",
+    "email": "dave.b@workspace.net",
+    "photo": "https://api.dicebear.com"
+  },
+  {
+    "id": 5,
+    "name": "Eva Martinez",
+    "email": "eva.m@portfolio.io",
+    "photo": "https://api.dicebear.com"
+  },
+  {
+    "id": 6,
+    "name": "Frank White",
+    "email": "fwhite@company.com",
+    "photo": "https://api.dicebear.com"
+  },
+  {
+    "id": 7,
+    "name": "Grace Taylor",
+    "email": "grace.t@studio.dev",
+    "photo": "https://api.dicebear.com"
+  },
+  {
+    "id": 8,
+    "name": "Henry Wilson",
+    "email": "h.wilson@network.co",
+    "photo": "https://api.dicebear.com"
+  },
+  {
+    "id": 9,
+    "name": "Ivy Davis",
+    "email": "ivy.davis@corp.org",
+    "photo": "https://api.dicebear.com"
+  },
+  {
+    "id": 10,
+    "name": "Jack Moore",
+    "email": "jmoore@enterprise.net",
+    "photo": "https://api.dicebear.com"
+  }
+]

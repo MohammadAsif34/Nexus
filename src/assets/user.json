@@ -1,0 +1,47 @@
+[
+  {
+    "id": "u1",
+    "name": "Aarav Sharma",
+    "photo": "/avatars/aarav.jpg",
+    "lastMessage": "Okay, see you at 6 PM 👍",
+    "lastMessageTime": "2026-01-23T12:30:00Z",
+    "unreadCount": 2,
+    "isOnline": true
+  },
+  {
+    "id": "u2",
+    "name": "Neha Verma",
+    "photo": "/avatars/neha.jpg",
+    "lastMessage": "Can you share the notes?",
+    "lastMessageTime": "2026-01-23T11:45:10Z",
+    "unreadCount": 0,
+    "isOnline": false
+  },
+  {
+    "id": "u3",
+    "name": "Rahul Mehta",
+    "photo": "/avatars/rahul.jpg",
+    "lastMessage": "😂😂 that was funny",
+    "lastMessageTime": "2026-01-23T10:58:42Z",
+    "unreadCount": 5,
+    "isOnline": true
+  },
+  {
+    "id": "u4",
+    "name": "Priya Singh",
+    "photo": "/avatars/priya.jpg",
+    "lastMessage": "I’ll call you later",
+    "lastMessageTime": "2026-01-22T18:20:05Z",
+    "unreadCount": 0,
+    "isOnline": false
+  },
+  {
+    "id": "u5",
+    "name": "Mohit Khan",
+    "photo": "/avatars/mohit.jpg",
+    "lastMessage": "Sent the documents 📄",
+    "lastMessageTime": "2026-01-23T09:10:33Z",
+    "unreadCount": 1,
+    "isOnline": false
+  }
+]
