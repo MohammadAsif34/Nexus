@@ -1,27 +1,33 @@
 import React from "react";
-
 import {
   Bookmark,
   Ellipsis,
   EllipsisVertical,
+  File,
   InfoIcon,
   PhoneOutgoing,
   Search,
   Send,
   Video,
 } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Info from "../../components/component/Info";
+import { startCall } from "../../redux/slice/callSlice";
+// import { openMediaViewer } from "../../redux/slice/mediaViewer"; // optional
+
+/* ================= MAIN ================= */
 
 const ChatSection = () => {
   const currChat = useSelector((s) => s.currChat.chat);
-  if (currChat == null) {
+
+  if (!currChat) {
     return <Info />;
   }
+
   return (
-    <div className="h-full  flex flex-col ">
+    <div className="h-full flex flex-col bg-white">
       <ChatHeader chat={currChat} />
-      <ChatMessage />
+      <ChatMessages />
       <ChatSender />
     </div>
   );
@@ -29,272 +35,200 @@ const ChatSection = () => {
 
 export default ChatSection;
 
+/* ================= HEADER ================= */
+
 const ChatHeader = ({ chat }) => {
+  const dispatch = useDispatch();
   return (
-    <>
-      <div className="h-16 px-4 border-b border-gray-200 flex items-center justify-between bg-white">
-        <div className="flex  items-center gap-2">
-          <div className="w-12 h-12 rounded-full overflow-hidden bg-green-300">
-            <img
-              src="/default_avatar.png"
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <p className=" font-semibold text-lg">
-            {chat.name || "Etta McDaniel"}
-          </p>{" "}
-          <span className="ml-2 text-[10px] p-1 bg-green-200 leading-2 rounded-sm text-green-500">
-            online
-          </span>
-        </div>
-        <div className="flex gap-8 items-center">
-          <button>
-            <Search size={18} />
-          </button>
-          <button>
-            <PhoneOutgoing size={18} />
-          </button>
-          <button>
-            <Video size={18} />
-          </button>
-          <button>
-            <Bookmark size={18} />
-          </button>
-          <button>
-            <InfoIcon size={18} />
-          </button>
-          <button>
-            <EllipsisVertical size={18} />
-          </button>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const ChatSender = () => {
-  return (
-    <>
-      <div className="px-4 h-14 border-b border-gray-300 flex items-center gap-6 bg-white">
-        <button className="p-2 rounded-full hover:bg-gray-200">
-          <Ellipsis size={18} />
-        </button>
-
-        <form className="flex-1 flex gap-4 ">
-          <input
-            type="text"
-            name=""
-            id=""
-            className="w-full h-8 px-2 text-sm text-gray-600 rounded-sm border border-gray-300 focus:outline-1"
+    <div className="h-16 px-4 border-b border-gray-200 flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <div className="w-11 h-11 rounded-full overflow-hidden bg-gray-300">
+          <img
+            src="/default_avatar.png"
+            alt=""
+            className="w-full h-full object-cover"
           />
-          <button
-            type="submit"
-            className="p-2 bg-green-500  rounded-sm text-white"
-          >
-            <Send size={18} />
-          </button>
-        </form>
+        </div>
+
+        <div>
+          <p className="font-semibold text-gray-800">{chat.name || "User"}</p>
+          <span className="text-xs text-green-500">online</span>
+        </div>
       </div>
-    </>
+
+      <div className="flex gap-5 text-gray-600">
+        <button className=" p-2 rounded-full hover:bg-gray-300  transition-all duration-75">
+          <Search size={20} />
+        </button>
+        <button
+          className=" p-2 rounded-full hover:bg-gray-300  transition-all duration-75"
+          onClick={() => dispatch(startCall({ type: "audio", user: chat }))}
+        >
+          <PhoneOutgoing size={20} />
+        </button>
+        <button
+          className=" p-2 rounded-full hover:bg-gray-300  transition-all duration-75"
+          onClick={() => dispatch(startCall({ type: "video", user: chat }))}
+        >
+          <Video size={20} />
+        </button>
+        <button className=" p-2 rounded-full hover:bg-gray-300  transition-all duration-75">
+          <Bookmark size={20} />
+        </button>
+        <button className=" p-2 rounded-full hover:bg-gray-300  transition-all duration-75">
+          <InfoIcon size={20} />
+        </button>
+        <button className=" p-2 rounded-full hover:bg-gray-300  transition-all duration-75">
+          <EllipsisVertical size={20} />
+        </button>
+      </div>
+    </div>
   );
 };
 
-const ChatMessage = () => {
-  const id = "user_1";
+/* ================= MESSAGES ================= */
+
+const ChatMessages = () => {
+  const dispatch = useDispatch();
+  const myId = "user_1";
+
   const chat = [
     {
-      id: "msg_2",
+      id: "1",
       senderId: "user_2",
-      text: "Hi, how are you?",
       type: "text",
+      text: "Hi, how are you?",
       timestamp: "2026-01-23T10:00:10Z",
     },
     {
-      id: "msg_1",
+      id: "2",
       senderId: "user_1",
-      text: "Hey!",
       type: "text",
-      timestamp: "2026-01-23T10:00:01Z",
+      text: "I’m good! What about you?",
+      timestamp: "2026-01-23T10:00:30Z",
     },
     {
-      id: "msg_3",
-      senderId: "user_1",
-      text: "I’m good. What about you?",
-      type: "text",
-      timestamp: "2026-01-23T10:00:25Z",
-    },
-    {
-      id: "msg_4",
+      id: "3",
       senderId: "user_2",
-      text: "Doing well 👍",
-      type: "text",
-      timestamp: "2026-01-23T10:00:40Z",
+      type: "photo",
+      text: "asdjks",
+      url: "https://picsum.photos/300/200",
+      timestamp: "2026-01-23T10:01:00Z",
     },
     {
-      id: "msg_5",
+      id: "4",
       senderId: "user_1",
-      text: "Are you free today?",
-      type: "text",
-      timestamp: "2026-01-23T10:01:05Z",
-    },
-    {
-      id: "msg_6",
-      senderId: "user_2",
-      text: "Yes, after 6 PM",
-      type: "text",
-      timestamp: "2026-01-23T10:01:30Z",
-    },
-    {
-      id: "msg_7",
-      senderId: "user_1",
-      text: "Let’s catch up then",
-      type: "text",
-      timestamp: "2026-01-23T10:01:55Z",
-    },
-    {
-      id: "msg_8",
-      senderId: "user_2",
-      text: "Sure!",
-      type: "text",
-      timestamp: "2026-01-23T10:02:10Z",
-    },
-    {
-      id: "msg_9",
-      senderId: "user_1",
-      text: "Did you finish the project?",
-      type: "text",
-      timestamp: "2026-01-23T10:02:40Z",
-    },
-    {
-      id: "msg_10",
-      senderId: "user_2",
-      text: "Almost done",
-      type: "text",
-      timestamp: "2026-01-23T10:03:00Z",
-    },
-    {
-      id: "msg_11",
-      senderId: "user_1",
-      text: "Need any help?",
-      type: "text",
-      timestamp: "2026-01-23T10:03:20Z",
-    },
-    {
-      id: "msg_12",
-      senderId: "user_2",
-      text: "Maybe with testing",
-      type: "text",
-      timestamp: "2026-01-23T10:03:45Z",
-    },
-    {
-      id: "msg_13",
-      senderId: "user_1",
-      text: "I can help later",
-      type: "text",
-      timestamp: "2026-01-23T10:04:05Z",
-    },
-    {
-      id: "msg_14",
-      senderId: "user_2",
-      text: "That would be great",
-      type: "text",
-      timestamp: "2026-01-23T10:04:30Z",
-    },
-    {
-      id: "msg_15",
-      senderId: "user_1",
-      text: "Cool 😄",
-      type: "text",
-      timestamp: "2026-01-23T10:04:50Z",
-    },
-    {
-      id: "msg_20",
-      senderId: "user_2",
-      text: "See you at 6",
-      type: "text",
-      timestamp: "2026-01-23T10:05:10Z",
-    },
-    {
-      id: "msg_17",
-      senderId: "user_1",
-      text: "See you!",
-      type: "text",
-      timestamp: "2026-01-23T10:05:25Z",
-    },
-    {
-      id: "msg_18",
-      senderId: "user_2",
-      text: "Take care",
-      type: "text",
-      timestamp: "2026-01-23T10:05:40Z",
-    },
-    {
-      id: "msg_19",
-      senderId: "user_1",
-      text: "You too 👍",
-      type: "text",
-      timestamp: "2026-01-23T10:06:00Z",
-    },
-    {
-      id: "msg_20",
-      senderId: "user_2",
-      text: "Bye!",
-      type: "text",
-      timestamp: "2026-01-23T10:06:15Z",
+      type: "file",
+      fileName: "project-report.pdf",
+      fileSize: "1.2 MB",
+      timestamp: "2026-01-23T10:01:40Z",
     },
   ];
+
+  const openMedia = (type, data) => {
+    console.log("OPEN MEDIA:", type, data);
+    // dispatch(openMediaViewer({ type, data }));
+  };
+
   return (
-    <>
-      <div className="flex-1 px-4 border-b border-gray-300 overflow-auto">
-        <div className="flex flex-col gap-1 py-1">
-          {chat?.map((c, idx) => (
-            <MessageCard chat={c} id={id} key={idx} />
-          ))}
-        </div>
+    <div className="flex-1 px-4 py-2 overflow-y-auto bg-gray-5">
+      <div className="flex flex-col gap-2">
+        {chat.map((msg) => (
+          <MessageBubble
+            key={msg.id}
+            msg={msg}
+            isMine={msg.senderId === myId}
+            onOpenMedia={openMedia}
+          />
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 
-const MessageCard = ({ chat, id }) => {
-  const t = chat.timestamp.split("T")[1].replace("Z", "");
-  let [h, m] = t.split(":");
-  const period = h >= 12 ? "pm" : "am";
-  h = h % 12 || 12;
-  const time = `${h}:${m} ${period}`;
+/* ================= MESSAGE BUBBLE ================= */
 
+const MessageBubble = ({ msg, isMine, onOpenMedia }) => {
   return (
-    <>
-      <div className="">
-        {chat.senderId == id ? (
-          <div className="max-w-3/4 px-2 py-2 float-end text-en bg-gray-200 rounded-md">
-            {chat.text +
-              `Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum a
-            veritatis eveniet voluptatem animi ipsam doloremque atque laudantium
-            ut tenetur similique ab, repudiandae sit labore. Nemo totam animi
-            blanditiis quo."
-            `}
-            <span className=" float-end text-xs translate-y-1 text-gray-400">
-              {time}
-              <span className="ml-2">{"sent"}</span>
-            </span>
-          </div>
-        ) : (
-          <div className="max-w-3/4 p-2 float-start bg-gray-200 rounded-md">
-            {chat.text +
-              `Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum a
-              veritatis eveniet voluptatem animi ipsam doloremque atque laudantium
-              ut tenetur similique ab, repudiandae sit labore. Nemo totam animi
-              blanditiis quo."
-              `}
-            <span className=" float-end text-xs translate-y-1 text-gray-400">
-              {time}
-              <span className="ml-2">{"sent"}</span>
-            </span>
+    <div className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
+      <div
+        className={`max-w-[70%] rounded-lg px-3 py-2 text-sm
+        ${isMine ? "bg-green-200" : "bg-gray-100 border border-gray-200"}`}
+      >
+        {msg.type === "text" && <p>{msg.text}</p>}
+
+        {msg.type === "photo" && (
+          <>
+            <img
+              src={msg.url}
+              alt=""
+              className="rounded-md cursor-pointer"
+              onClick={() => onOpenMedia("photo", msg.url)}
+            />
+            <p className="pt-1">{msg?.text}</p>
+          </>
+        )}
+
+        {msg.type === "file" && (
+          <div
+            className="flex items-center gap-2 cursor-pointer text-blue-600"
+            onClick={() => onOpenMedia("file", msg)}
+          >
+            <div className="p-3 bg-green-100 rounded-md">
+              <p className="">
+                <File className="inline mr-2 text-black" />
+                {msg.fileName}
+              </p>
+              <p>
+                <span className="text-xs float-end text-gray-400">
+                  ({msg.fileSize})
+                </span>
+              </p>
+            </div>
           </div>
         )}
+
+        <span className="block mt-1 text-[10px] text-gray-500 text-right">
+          {formatTime(msg.timestamp)}
+        </span>
       </div>
-    </>
+    </div>
   );
+};
+
+/* ================= SENDER ================= */
+
+const ChatSender = () => {
+  return (
+    <div className="h-14 px-4 border-t border-gray-200 flex items-center gap-3">
+      <button className="p-2 hover:bg-gray-200 rounded-full">
+        <Ellipsis size={20} />
+      </button>
+
+      <form className="flex-1 flex gap-2">
+        <input
+          type="text"
+          placeholder="Type a message"
+          className="flex-1 h-9 px-3 rounded-md border border-gray-300 text-sm focus:outline-none"
+        />
+        <button
+          type="submit"
+          className="px-3 bg-green-500 rounded-md text-white"
+        >
+          <Send size={20} />
+        </button>
+      </form>
+    </div>
+  );
+};
+
+/* ================= UTIL ================= */
+
+const formatTime = (ts) => {
+  const d = new Date(ts);
+  let h = d.getHours();
+  const m = d.getMinutes().toString().padStart(2, "0");
+  const p = h >= 12 ? "pm" : "am";
+  h = h % 12 || 12;
+  return `${h}:${m} ${p}`;
 };

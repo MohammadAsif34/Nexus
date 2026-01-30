@@ -7,77 +7,115 @@ import {
   LogOut,
   ShieldCheck,
   User,
+  Moon,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { setTabs2 } from "../../../redux/slice/tabSlice";
 
+/* ================= Settings ================= */
+
 const Settings = () => {
   const dispatch = useDispatch();
+
+  const items = [
+    { label: "profile", icon: User, text: "Profile" },
+    { label: "notification", icon: Bell, text: "Notifications" },
+    { label: "darkmode", icon: Moon, text: "Dark Mode" },
+    { label: "privacy", icon: Lock, text: "Privacy" },
+    { label: "security", icon: ShieldCheck, text: "Security" },
+    { label: "help", icon: BadgeQuestionMark, text: "Help" },
+  ];
+
   return (
-    <div className="h-full flex flex-col cursor-default ">
-      <div className="p-2 font-semibold text-2xl text-gray-800">Settings</div>
-      <div className="flex-1">
-        <div className="p-4 my-2 relative flex gap-4 items-center bg-white/50 backdrop-blur-xl rounded-md hover:bg-white/70 transition-all duration-300">
-          <div className="w-14 h-14 bg-gray-300 rounded-full overflow-hidden ">
-            <img src="/default_avatar.png" alt="" />
+    <section className="h-full flex flex-col bg-green-50/40">
+      {/* ===== Header ===== */}
+      <div className="px-3 py-3 text-xl font-semibold text-gray-800 border-b">
+        Settings
+      </div>
+
+      <div className="flex-1 p-3">
+        {/* ===== Profile Card ===== */}
+        <motion.div
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.99 }}
+          className="relative flex items-center gap-4 p-4 mb-3
+                     bg-white/60 backdrop-blur-xl rounded-lg
+                     hover:bg-white/80 transition"
+        >
+          <div className="w-14 h-14 rounded-full overflow-hidden bg-gray-300 shrink-0">
+            <img
+              src="/default_avatar.png"
+              alt="User avatar"
+              className="w-full h-full object-cover"
+            />
           </div>
-          <p className="font-semibold">Mohammad Asif</p>
-          <button
-            className="absolute right-2 p-2 hover:bg-green-300 rounded-full"
+
+          <div className="flex-1">
+            <p className="font-semibold text-gray-700">Mohammad Asif</p>
+            <span className="text-xs text-gray-400">View & edit profile</span>
+          </div>
+
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="p-2 rounded-full hover:bg-green-200"
             onClick={() => dispatch(setTabs2("profile"))}
           >
             <Edit size={18} />
-          </button>
+          </motion.button>
+        </motion.div>
+
+        {/* ===== Settings List ===== */}
+        <div className="flex flex-col gap-1">
+          {items.map(({ label, icon: Icon, text }) => (
+            <SettingItem
+              key={label}
+              label={label}
+              icon={<Icon size={18} />}
+              onClick={() => dispatch(setTabs2(label))}
+            >
+              {text}
+            </SettingItem>
+          ))}
         </div>
-        <hr className="text-gray-300" />
-        <div className="py-2 flex flex-col gap-0.5 ">
-          <Card label="profile">
-            <User size={18} />
-            Profile
-          </Card>
-          <Card label="notification">
-            <Bell size={18} />
-            Notification
-          </Card>
-          <Card label="darkmode">
-            <Bell size={18} />
-            Dark Mode
-          </Card>
-          <Card label="privacy">
-            <Lock size={18} />
-            Privacy
-          </Card>
-          <Card label="security">
-            <ShieldCheck size={18} />
-            Security
-          </Card>
-          <Card label="help">
-            <BadgeQuestionMark size={18} />
-            Help
-          </Card>
-        </div>
-        <hr className="text-gray-300" />
-        <button className="w-full flex items-center gap-2 my-2 text-start text-sm text-red-500 px-4 py-2 rounded-md hover:bg-red-200 transition-all duration-300">
+
+        <hr className="my-3 border-gray-300" />
+
+        {/* ===== Logout ===== */}
+        <motion.button
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full flex items-center gap-2 px-4 py-2
+                     text-sm font-semibold text-red-500
+                     rounded-md hover:bg-red-100 transition"
+        >
           <LogOut size={18} />
           Log out
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </section>
   );
 };
 
 export default Settings;
 
-const Card = ({ children, label = "profile" }) => {
-  const dispatch = useDispatch();
+/* ================= Setting Item ================= */
+
+const SettingItem = ({ children, icon, onClick }) => {
   return (
-    <>
-      <div
-        className="px-4 py-2.5 flex items-center gap-2 hover:bg-gray-200 rounded-md text-sm font-semibold transition-all duration-300 "
-        onClick={() => dispatch(setTabs2(label))}
-      >
-        {children}
-      </div>
-    </>
+    <motion.div
+      role="button"
+      tabIndex={0}
+      whileHover={{ backgroundColor: "#e5e7eb" }}
+      whileTap={{ scale: 0.98 }}
+      className="px-4 py-2.5 flex items-center gap-2
+                 rounded-md text-sm font-semibold
+                 cursor-pointer focus:outline-none"
+      onClick={onClick}
+    >
+      {icon}
+      {children}
+    </motion.div>
   );
 };

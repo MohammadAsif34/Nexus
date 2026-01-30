@@ -1,34 +1,58 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { AnimatePresence, motion } from "framer-motion";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import Info from "../../components/component/Info";
 import ChatSection from "../../components/chat-section/ChatSection";
-import Settings from "../../components/navigation/settings/Settings";
 import Profile from "../../components/navigation/settings/options/Profile";
 import Notification from "../../components/navigation/settings/options/Notification";
 import Privacy from "../../components/navigation/settings/options/Privacy";
 import Security from "../../components/navigation/settings/options/Security";
 import Help from "../../components/navigation/settings/options/Help";
 import Darkmode from "../../components/navigation/settings/options/Darkmode";
-import { useAuth0 } from "@auth0/auth0-react";
+
+/* ===== Component Registry ===== */
+const TAB_COMPONENTS = {
+  info: Info,
+  chat: ChatSection,
+  profile: Profile,
+  notification: Notification,
+  privacy: Privacy,
+  security: Security,
+  help: Help,
+  darkmode: Darkmode,
+};
 
 const NavigateTabs2 = () => {
-  const tabs2 = useSelector((s) => s.tabs.tabs2);
+  const activeTab = useSelector((s) => s.tabs.tabs2);
   const { user } = useAuth0();
 
+  const ActiveComponent = TAB_COMPONENTS[activeTab] || Info;
+
   return (
-    <div className="flex-1 h-screen overflow-y-auto  p-4 pl-2 bg-gre en-50">
-      <div className=" overflow-hidden border border-gray-200 h-full rounded-xl bg-white/10 backdrop-blur-[2px] shadow-sm">
-        {tabs2 == "info" && <p>{JSON.stringify(user)}</p>}
-        {/* {tabs2 == "info" && <Info />} */}
-        {tabs2 == "chat" && <ChatSection />}
-        {tabs2 == "profile" && <Profile />}
-        {tabs2 == "notification" && <Notification />}
-        {tabs2 == "privacy" && <Privacy />}
-        {tabs2 == "security" && <Security />}
-        {tabs2 == "help" && <Help />}
-        {tabs2 == "darkmode" && <Darkmode />}
+    <section className="flex-1 h-screen p-4 pl-2 bg-green-50">
+      <div
+        className="h-full overflow-hidden rounded-xl
+                      border border-gray-200
+                      bg-white/10 backdrop-blur
+                      shadow-sm"
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="h-full"
+          >
+            {/* Default info panel */}
+            {activeTab === "info" ? <Info user={user} /> : <ActiveComponent />}
+          </motion.div>
+        </AnimatePresence>
       </div>
-    </div>
+    </section>
   );
 };
 

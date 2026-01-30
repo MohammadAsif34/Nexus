@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Bell,
   BookMarked,
@@ -11,116 +11,156 @@ import {
   Settings2,
   User,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { setTabs } from "../../redux/slice/tabSlice";
 import { Link } from "react-router-dom";
 
+/* ================= Sidebar ================= */
+
 const Sidebar = () => {
   const dispatch = useDispatch();
-  const tabs = useSelector((s) => s.tabs.tabs);
+  const activeTab = useSelector((s) => s.tabs.tabs);
+
+  const navItems = [
+    { id: "messages", icon: MessageSquareText, label: "Messages" },
+    { id: "status", icon: CircleDotDashed, label: "Status" },
+    { id: "saveds", icon: BookMarked, label: "Saved" },
+    { id: "notifications", icon: Bell, label: "Notifications" },
+  ];
+
   return (
-    <div className="w-20 h-full py-6 bg-green-500/70 backdrop-blur flex flex-col items-center z-10">
-      <MessagesSquare />
-      <div className="flex-1 py-6 flex flex-col text-white gap-4">
-        {/* ===== messages ===== */}
-        <button
-          type="button"
-          title="Messages"
-          onClick={() => dispatch(setTabs("messages"))}
-          className={`p-2 rounded-full hover:bg-green-100 hover:text-green-500 transition-all duration-300 ${tabs == "messages" ? "bg-white text-green-500" : ""} `}
-        >
-          <MessageSquareText size={24} />
-        </button>
-
-        {/* ===== status ===== */}
-        <button
-          type="button"
-          title="status"
-          onClick={() => dispatch(setTabs("status"))}
-          className={`p-2 rounded-full hover:bg-green-100 hover:text-green-500 transition-all duration-300 ${tabs == "status" ? "bg-white text-green-500" : ""} `}
-        >
-          <CircleDotDashed size={24} />
-        </button>
-
-        {/* ====== saveds ===== */}
-        <button
-          type="button"
-          title="saveds"
-          onClick={() => dispatch(setTabs("saveds"))}
-          className={`p-2 rounded-full hover:bg-green-100 hover:text-green-500 transition-all duration-300 ${tabs == "saveds" ? "bg-white text-green-500" : ""} `}
-        >
-          <BookMarked size={24} />
-        </button>
-
-        {/* ====== notifications ====== */}
-        <button
-          type="button"
-          title="notifications"
-          onClick={() => dispatch(setTabs("notifications"))}
-          className={`p-2 rounded-full hover:bg-green-100 hover:text-green-500 transition-all duration-300 ${tabs == "notifications" ? "bg-white text-green-500" : ""} `}
-        >
-          <Bell size={24} />
-        </button>
+    <aside className="w-20 h-full py-6 bg-green-500/70 backdrop-blur-md flex flex-col items-center z-10">
+      {/* Logo */}
+      <div className="mb-8 text-white">
+        <MessagesSquare size={28} />
       </div>
 
-      <div>
-        {/* ====== settings ====== */}
-        <button
-          type="button"
-          title="settings"
+      {/* Navigation */}
+      <div className="flex-1 flex flex-col gap-4">
+        {navItems.map(({ id, icon: Icon, label }) => (
+          <NavButton
+            key={id}
+            icon={<Icon size={24} />}
+            active={activeTab === id}
+            label={label}
+            onClick={() => dispatch(setTabs(id))}
+          />
+        ))}
+      </div>
+
+      {/* Bottom actions */}
+      <div className="flex flex-col items-center gap-4 relative">
+        <NavButton
+          icon={<Settings size={24} />}
+          active={activeTab === "settings"}
+          label="Settings"
           onClick={() => dispatch(setTabs("settings"))}
-          className={`p-2 rounded-full hover:bg-green-100 hover:text-green-500 ${tabs == "settings" ? "bg-white text-green-500" : "text-white"}`}
-        >
-          <Settings size={24} />
-        </button>
-        {/* ===== user-profile ===== */}
-        <UserProfile setTabs={setTabs} />
+        />
+        <UserProfile />
       </div>
-    </div>
+    </aside>
   );
 };
 
 export default Sidebar;
 
-const UserProfile = () => {
-  const [isOpen, setIsOpen] = useState(false);
+/* ================= Nav Button ================= */
+
+const NavButton = ({ icon, active, onClick, label }) => {
   return (
-    <>
-      <div
-        className="w-10 h-10 mt-4 rounded-full overflow-hidden bg-green-300 cursor-pointer relative"
-        onClick={() => setIsOpen((p) => !p)}
-      >
-        <img src="/default_avatar.png" alt="" />
-      </div>
-      {isOpen && (
-        <div className="absolute bottom-16 z-50 w-40 h-fit border border-gray-200 rounded-md bg-gray-50 shadow-sm cursor-default">
-          <ul className="text-gray-600">
-            <li className="px-4 py-1 pt-2 flex items-center gap-2 hover:bg-gray-100">
-              <User size={16} />
-              Profile
-            </li>
-            <li
-              className="px-4 py-1 flex items-center gap-2 hover:bg-gray-100"
-              onClick={() => setTabs("settings")}
-            >
-              <Settings2 size={16} />
-              Setting
-            </li>
-            <li className="px-4 py-1 flex items-center gap-2 hover:bg-gray-100">
-              <Moon size={16} />
-              Dark mode
-            </li>
-            <li className="border-b border-gray-200"></li>
-            <Link
-              to={"/logout"}
-              className="px-4 py-1 pb-2 flex items-center gap-2 text-red-500 hover:bg-red-100"
-            >
-              <LogOut size={16} />
-              Log out
-            </Link>
-          </ul>
-        </div>
-      )}
-    </>
+    <motion.button
+      type="button"
+      title={label}
+      onClick={onClick}
+      whileHover={{ scale: 1.12 }}
+      whileTap={{ scale: 0.95 }}
+      animate={{
+        backgroundColor: active ? "#ffffff" : "rgba(0,0,0,0)",
+        color: active ? "#22c55e" : "#ffffff",
+      }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      className="p-2 rounded-full"
+    >
+      {icon}
+    </motion.button>
   );
 };
+
+/* ================= User Profile ================= */
+
+const UserProfile = () => {
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
+  const dispatch = useDispatch();
+
+  // Close on outside click
+  useEffect(() => {
+    const handler = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  return (
+    <div className="relative" ref={menuRef}>
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="w-10 h-10 rounded-full overflow-hidden bg-green-300 cursor-pointer"
+        onClick={() => setOpen((p) => !p)}
+      >
+        <img
+          src="/default_avatar.png"
+          alt="User"
+          className="w-full h-full object-cover"
+        />
+      </motion.div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="absolute bottom-14 text-gray-300 left-0 w-44 bg-white rounded-md shadow-lg border border-gray-200 overflow-hidden"
+          >
+            <MenuItem icon={<User size={18} />} label="Profile" />
+            <MenuItem
+              icon={<Settings2 size={18} />}
+              label="Settings"
+              onClick={() => dispatch(setTabs("settings"))}
+            />
+            <MenuItem icon={<Moon size={18} />} label="Dark mode" />
+
+            <div className="border-t border-gray-300" />
+
+            <Link
+              to="/logout"
+              className="flex items-center gap-3 px-4 py-2 text-sm text-lack text-red-500 hover:bg-red-50"
+            >
+              <LogOut size={18} />
+              Log out
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+/* ================= Menu Item ================= */
+
+const MenuItem = ({ icon, label, onClick }) => (
+  <button
+    onClick={onClick}
+    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
+  >
+    {icon}
+    {label}
+  </button>
+);

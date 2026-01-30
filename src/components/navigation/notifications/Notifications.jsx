@@ -1,105 +1,103 @@
 import React, { useState } from "react";
 import { Bell, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+
+const initialNotifications = [
+  {
+    _id: 1,
+    title: "New Message",
+    message:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab cumque vitae nam.",
+  },
+  {
+    _id: 2,
+    title: "Profile Update",
+    message: "Your profile information was updated successfully.",
+  },
+  {
+    _id: 3,
+    title: "Security Alert",
+    message: "A new login was detected from a different device.",
+  },
+];
 
 const Notifications = () => {
-  let n = [
-    {
-      _id: 1,
-      title: "Tile",
-      message:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab cumque vitae nam, et est quasi modi placeat veritatis necessitatibus eos doloribus.",
-    },
-    {
-      _id: 2,
-      title: "Tile",
-      message:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab cumque vitae nam, et est quasi modi placeat veritatis necessitatibus eos doloribus.",
-    },
-    {
-      _id: 3,
-      title: "Tile",
-      message:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab cumque vitae nam, et est quasi modi placeat veritatis necessitatibus eos doloribus.",
-    },
-    {
-      _id: 4,
-      title: "Tile",
-      message:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab cumque vitae nam, et est quasi modi placeat veritatis necessitatibus eos doloribus.",
-    },
-    {
-      _id: 5,
-      title: "Tile",
-      message:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab cumque vitae nam, et est quasi modi placeat veritatis necessitatibus eos doloribus.",
-    },
-    {
-      _id: 6,
-      title: "Tile",
-      message:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab cumque vitae nam, et est quasi modi placeat veritatis necessitatibus eos doloribus.",
-    },
-  ];
+  const [notifications, setNotifications] = useState(initialNotifications);
 
-  const [noti, setNoti] = useState(n);
   const deleteNotification = (id) => {
-    console.log(id);
-    console.log(noti);
-    let n = noti.filter((i) => i._id != id);
-    console.log(n);
-    setNoti(n);
+    setNotifications((prev) => prev.filter((n) => n._id !== id));
   };
 
   return (
-    <div className="h-full flex flex-col ">
-      <div className="p-2 font-semibold text-2xl text-gray-800">
+    <section className="h-full flex flex-col bg-white">
+      {/* ===== Header ===== */}
+      <div className="px-3 py-3 text-xl font-semibold text-gray-800 border-b">
         Notifications
       </div>
-      <div className="flex-1 p-2 overflow-y-auto">
-        {noti.length == 0 ? (
-          <div className="flex-1 h-full flex flex-col justify-center items-center gap-2">
-            <Bell size={50} className="text-gray-500" />
-            <span className="text-sm text-gray-400 font-semibold italic">
-              No Notifications
-            </span>
-          </div>
-        ) : (
-          <div className="grid gap-2">
-            {noti?.map((i, idx) => (
-              <Card
-                key={idx}
-                data={i}
-                deleteNotification={deleteNotification}
-              />
-            ))}
-          </div>
-        )}
+
+      {/* ===== Content ===== */}
+      <div className="flex-1 p-3 overflow-y-auto custom-scroll">
+        <AnimatePresence>
+          {notifications.length === 0 ? (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              className="h-full flex flex-col items-center justify-center gap-2"
+            >
+              <Bell size={48} className="text-gray-400" />
+              <span className="text-sm text-gray-400 font-medium italic">
+                No notifications
+              </span>
+            </motion.div>
+          ) : (
+            <motion.div layout className="grid gap-2">
+              {notifications.map((item) => (
+                <NotificationCard
+                  key={item._id}
+                  data={item}
+                  onDelete={deleteNotification}
+                />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </div>
+    </section>
   );
 };
 
 export default Notifications;
 
-const Card = ({ data, deleteNotification }) => {
+/* ================= Notification Card ================= */
+
+const NotificationCard = ({ data, onDelete }) => {
   return (
-    <>
-      <div className="border border-gray-300 p-2 rounded-md bg-gray-50 relative cursor-default group">
-        <button
-          className="float-end abso lute top-1 right-1 invisible group-hover:visible cursor-pointer"
-          onClick={() => deleteNotification(data._id)}
-        >
-          <X size={14} className="text-gray-400" />
-        </button>
-        <h3 className="font-semibold text-gray-600 text-sm capitalize">
-          title
-        </h3>
-        <p className="text-sm text-gray-500">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab cumque
-          vitae nam, et est quasi modi placeat veritatis necessitatibus eos
-          doloribus.
-        </p>
-      </div>
-    </>
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: -40 }}
+      transition={{ duration: 0.2 }}
+      className="relative p-3 rounded-md border border-gray-200 bg-gray-50
+                 hover:bg-gray-100 group"
+    >
+      {/* Delete Button */}
+      <button
+        onClick={() => onDelete(data._id)}
+        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100
+                   transition-opacity"
+      >
+        <X size={14} className="text-gray-400 hover:text-red-500" />
+      </button>
+
+      <h3 className="text-sm font-semibold text-gray-700 capitalize">
+        {data.title}
+      </h3>
+      <p className="mt-0.5 text-sm text-gray-500 leading-snug">
+        {data.message}
+      </p>
+    </motion.div>
   );
 };
