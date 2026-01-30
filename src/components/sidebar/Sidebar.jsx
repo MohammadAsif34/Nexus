@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { setTabs } from "../../redux/slice/tabSlice";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 /* ================= Sidebar ================= */
 
@@ -105,6 +106,8 @@ const UserProfile = () => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  const { logout, isLoading } = useAuth0();
+
   return (
     <div className="relative" ref={menuRef}>
       <motion.div
@@ -139,13 +142,24 @@ const UserProfile = () => {
 
             <div className="border-t border-gray-300" />
 
-            <Link
+            <button
+              onClick={() => logout()}
+              className="flex items-center gap-3 px-4 py-2 text-sm text-lack text-red-500 hover:bg-red-50"
+            >
+              <LogOut size={18} />
+              {isLoading ? (
+                <span className="inline-block w-5 h-5 border-2 border-red-500 rounded-full border-t-transparent animate-spin"></span>
+              ) : (
+                "Log out"
+              )}
+            </button>
+            {/* <Link
               to="/logout"
               className="flex items-center gap-3 px-4 py-2 text-sm text-lack text-red-500 hover:bg-red-50"
             >
               <LogOut size={18} />
               Log out
-            </Link>
+            </Link> */}
           </motion.div>
         )}
       </AnimatePresence>
