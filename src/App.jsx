@@ -4,7 +4,6 @@ import Login from "./pages/auth-page/Login";
 import Register from "./pages/auth-page/Register";
 import Logout from "./pages/auth-page/Logout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Camera from "./pages/Camera";
 
 const Layout = () => {
   return <></>;
@@ -18,10 +17,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/camera",
-    element: <Camera />,
-  },
+
   {
     path: "/register",
     element: <Register />,
