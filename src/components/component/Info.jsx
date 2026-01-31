@@ -6,6 +6,9 @@ const Info = () => {
       <div>
         {/* Header */}
         <div className="mb-4">
+          <div className="w-32 h-32  mx-auto p-3 border-4 border-green-500 rounded-full flex justify-center items-center">
+            <img src="/logo.png" alt="" className="   object-cover  " />
+          </div>
           <h1 className="text-4xl py-2 font-bold tracking-wide text-gray-800">
             NEXUS
           </h1>

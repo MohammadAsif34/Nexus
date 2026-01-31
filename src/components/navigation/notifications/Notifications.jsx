@@ -31,7 +31,7 @@ const Notifications = () => {
   return (
     <section className="h-full flex flex-col">
       {/* ===== Header ===== */}
-      <div className="px-3 py-3 text-xl font-semibold text-gray-800 ">
+      <div className="p-2 text-2xl font-semibold text-gray-800 ">
         Notifications
       </div>
 

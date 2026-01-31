@@ -30,13 +30,11 @@ const Settings = () => {
     { label: "security", icon: ShieldCheck, text: "Security" },
     { label: "help", icon: BadgeQuestionMark, text: "Help" },
   ];
-
+  const { logout } = useAuth0();
   return (
     <section className="h-full flex flex-col bg-green-50/40 cursor-default">
       {/* ===== Header ===== */}
-      <div className="px-3 py-3 text-xl font-semibold text-gray-800">
-        Settings
-      </div>
+      <div className="p-2 text-2xl font-semibold text-gray-800">Settings</div>
 
       <div className="flex-1 p-3">
         {/* ===== Profile Card ===== */}
@@ -95,6 +93,7 @@ const Settings = () => {
           className="w-full flex items-center gap-2 px-4 py-2
                      text-sm font-semibold text-red-500
                      rounded-md hover:bg-red-100 transition"
+          onClick={() => logout()}
         >
           <LogOut size={18} />
           Log out

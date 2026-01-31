@@ -13,9 +13,10 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { setTabs } from "../../redux/slice/tabSlice";
+import { setTabs, setTabs2 } from "../../redux/slice/tabSlice";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { setCurrChat } from "../../redux/slice/currChat";
 
 /* ================= Sidebar ================= */
 
@@ -33,8 +34,9 @@ const Sidebar = () => {
   return (
     <aside className="w-20 h-full py-6 bg-green-500/70 backdrop-blur-md flex flex-col items-center z-10">
       {/* Logo */}
-      <div className="mb-8 text-white">
-        <MessagesSquare size={28} />
+      <div className="w-12 h-12 mb-8 p-1.5 text-whit bg-white rounded-full flex justify-center items-center">
+        {/* <MessagesSquare size={28} /> */}
+        <img src="/logo.png" alt="" className=" object-cover scale- 200" />
       </div>
 
       {/* Navigation */}
@@ -45,7 +47,10 @@ const Sidebar = () => {
             icon={<Icon size={24} />}
             active={activeTab === id}
             label={label}
-            onClick={() => dispatch(setTabs(id))}
+            onClick={() => {
+              dispatch(setTabs(id));
+              dispatch(setTabs2("info"));
+            }}
           />
         ))}
       </div>
@@ -132,19 +137,33 @@ const UserProfile = () => {
             transition={{ duration: 0.2 }}
             className="absolute bottom-14 text-gray-300 left-0 w-44 bg-white rounded-md shadow-lg border border-gray-200 overflow-hidden"
           >
-            <MenuItem icon={<User size={18} />} label="Profile" />
+            <MenuItem
+              icon={<User size={18} />}
+              label="Profile"
+              onClick={() => {
+                dispatch(setTabs("settings"));
+                dispatch(setTabs2("profile"));
+              }}
+            />
             <MenuItem
               icon={<Settings2 size={18} />}
               label="Settings"
               onClick={() => dispatch(setTabs("settings"))}
             />
-            <MenuItem icon={<Moon size={18} />} label="Dark mode" />
+            <MenuItem
+              icon={<Moon size={18} />}
+              label="Dark mode"
+              onClick={() => {
+                dispatch(setTabs("settings"));
+                dispatch(setTabs2("darkmode"));
+              }}
+            />
 
             <div className="border-t border-gray-300" />
 
             <button
               onClick={() => logout()}
-              className="flex items-center gap-3 px-4 py-2 text-sm text-lack text-red-500 hover:bg-red-50"
+              className="w-full flex items-center gap-3 px-4 py-2 text-sm text-lack text-red-500 hover:bg-red-50"
             >
               <LogOut size={18} />
               {isLoading ? (
