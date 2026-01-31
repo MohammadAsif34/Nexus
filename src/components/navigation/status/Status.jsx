@@ -1,65 +1,46 @@
-import { CircleDotDashed } from "lucide-react";
+import { CircleDotDashed, Plus } from "lucide-react";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { openStatusViewer } from "../../../redux/slice/viewStatus";
 
 const Status = () => {
-  const statuses = [
+  let statuses = [
     {
       id: 1,
       name: "My Status",
-      avatar: "https://i.pravatar.cc/100?img=11",
+      read: false,
+      picture: "https://i.pravatar.cc/100?img=11",
       isMine: true,
     },
     {
       id: 2,
       name: "Rahul",
-      avatar: "https://i.pravatar.cc/100?img=12",
+      read: true,
+      picture: "https://i.pravatar.cc/100?img=12",
     },
     {
       id: 3,
       name: "Anjali",
-      avatar: "https://i.pravatar.cc/100?img=13",
+      read: false,
+      picture: "https://i.pravatar.cc/100?img=13",
     },
     {
       id: 4,
       name: "Amit",
-      avatar: "https://i.pravatar.cc/100?img=14",
+      read: false,
+      picture: "https://i.pravatar.cc/100?img=14",
     },
     {
       id: 5,
       name: "Neha",
-      avatar: "https://i.pravatar.cc/100?img=15",
+      read: false,
+      picture: "https://i.pravatar.cc/100?img=15",
     },
   ];
-  const likes = [
-    {
-      id: 1,
-      name: "Md Asif",
-      username: "@mdasif",
-      avatar: "https://i.pravatar.cc/100?img=21",
-    },
-    {
-      id: 2,
-      name: "Rahul Kumar",
-      username: "@rahul",
-      avatar: "https://i.pravatar.cc/100?img=22",
-    },
-    {
-      id: 3,
-      name: "Anjali Singh",
-      username: "@anjali",
-      avatar: "https://i.pravatar.cc/100?img=23",
-    },
-    {
-      id: 4,
-      name: "Amit Verma",
-      username: "@amit",
-      avatar: "https://i.pravatar.cc/100?img=24",
-    },
-  ];
+  statuses = [...statuses].sort((a, b) => {
+    return a.read - b.read;
+  });
 
-  const dispatch = useDispatch();
   return (
     <div className="h-full flex flex-col ">
       <div className="p-2 font-semibold text-2xl text-gray-800">Status</div>
@@ -71,44 +52,31 @@ const Status = () => {
           </span>
         </div>
       ) : (
-        <div className="w-full max-w-sm py-4 bg-white rounded-xl shadow-lg">
+        <div className="w-full max-w-sm py-4 bg -white rou nded-xl sh adow-lg">
           {/* Header */}
 
-          {/* List */}
+          {/* =============== create status ================  */}
           <div className="m overflow-y-auto">
-            {statuses.map((status, idx) => (
-              <div
-                key={status.id}
-                className="flex items-center justify-between px-4 py-3  hover:bg-gray-100 cursor-pointer"
-                onClick={() =>
-                  dispatch(
-                    openStatusViewer({
-                      statuses,
-                      index: idx,
-                    }),
-                  )
-                }
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-0.5 border-[3px] border-green-500 rounded-full">
-                    <img
-                      src={status.avatar}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                  </div>
-
-                  <div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {status.name}
-                    </p>
-                    <span className="text-xs text-gray-400">
-                      {status?.username}
-                    </span>
-                  </div>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 hover:bg-gray-100 cursor-no-drop">
+              <div className="flex items-center gap-3">
+                <div className="p-4 bg-gray-200 rounded-full">
+                  <Plus size={22} />
                 </div>
 
-                <span className="text-gray-400 text-xs">5:31 pm</span>
+                <p className="text-sm font-medium text-gray-800">
+                  Add to your Story
+                </p>
               </div>
+            </div>
+
+            {/* =========== status list ================  */}
+            {statuses.map((status, idx) => (
+              <StatusCard
+                key={status._id || idx}
+                statuses={statuses}
+                status={status}
+                idx={idx}
+              />
             ))}
           </div>
         </div>
@@ -118,3 +86,40 @@ const Status = () => {
 };
 
 export default Status;
+
+const StatusCard = ({ statuses, status, idx }) => {
+  const dispatch = useDispatch();
+  return (
+    <>
+      <div
+        className="flex items-center justify-between my-1.5 px-4 py-3 bg-white rounded-lg hover:bg-gray-100 cursor-pointer"
+        onClick={() =>
+          dispatch(
+            openStatusViewer({
+              statuses,
+              index: idx,
+            }),
+          )
+        }
+      >
+        <div className="flex items-center gap-3">
+          <div
+            className={`p-0.5  ${!status.read && "border-[3px] border-green-500"}  rounded-full`}
+          >
+            <img
+              src={status.picture}
+              className="w-12 h-12 rounded-full object-cover"
+            />
+          </div>
+
+          <div>
+            <p className="text-sm font-medium text-gray-800">{status.name}</p>
+            <span className="text-xs text-gray-400">{status?.nickname}</span>
+          </div>
+        </div>
+
+        <span className="text-gray-400 text-xs">5:31 pm</span>
+      </div>
+    </>
+  );
+};

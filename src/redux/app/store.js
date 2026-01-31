@@ -4,6 +4,7 @@ import currChatReducer from "../slice/currChat";
 import tabsReducer from "../slice/tabSlice";
 import viewStatusReducer from "../slice/viewStatus";
 import callReducer from "../slice/callSlice";
+import savedReducer from "../slice/savedSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     tabs: tabsReducer,
     viewStatus: viewStatusReducer,
     call: callReducer,
+    saved: savedReducer,
   },
 });

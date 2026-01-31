@@ -16,7 +16,7 @@ const HomePage = () => {
   /* ===== Loading State ===== */
   if (isLoading) {
     return (
-      <div className="w-screen h-screen flex  flex-col items-center justify-center gap-2 bg-white">
+      <div className="w-screen h-screen flex  flex-col items-center justify-center gap-2 bg-[url(/bg-0.jpg)] bg-no-repeat bg-center bg-cover ">
         <div className="relative w-20 h-20 p-4">
           <img
             src="/logo.png"
@@ -43,12 +43,12 @@ const HomePage = () => {
   }
 
   /* ===== Auth Guard ===== */
-  if (!isAuthenticated) {
+  if (isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
   return (
-    <main className="w-screen h-screen flex bg-[url(/bg-2.png)] bg-cover bg-top overflow-hidden">
+    <main className="w-screen h-screen flex bg-[url(/bg-0.jpg)] bg-no-repeat bg-center bg-cover overflow-hidden">
       {/* Sidebar */}
       <Sidebar />
 

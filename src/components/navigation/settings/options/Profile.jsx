@@ -91,7 +91,7 @@ const Profile = () => {
               </button>
             </motion.div>
           )}
-          {JSON.stringify(user)}
+          {/* {JSON.stringify(user)} */}
         </motion.form>
       </div>
     </section>

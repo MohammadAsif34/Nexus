@@ -17,12 +17,13 @@ const UserCard = ({ user }) => {
       onClick={handleClick}
       role="button"
       tabIndex={0}
-      whileHover={{ backgroundColor: "#e5e7eb" }}
+      whileHover={{ backgroundColor: "#ffffff" }}
+      backgroundColor={{backgroundColor:"#ffffff"}}
       whileTap={{ scale: 0.98 }}
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
-      className="w-full px-2 py-2 flex items-center gap-3 rounded-md cursor-pointer focus:outline-none transition-all duration-75"
+      className="w-full px-2 py-2 flex items-center bg-white gap-3 rounded-md cursor-pointer focus:outline-none transition-all duration-75"
     >
       {/* ===== Avatar ===== */}
       <div className="relative w-10 h-10 shrink-0 rounded-full overflow-hidden bg-green-300">

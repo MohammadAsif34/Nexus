@@ -22,7 +22,7 @@ const NavigateTabs = () => {
   const ActiveComponent = TAB_COMPONENTS[activeTab];
 
   return (
-    <aside className="w-96 h-screen px-2 bg-white/10 backdrop-blur z-0 overflow-hidden">
+    <aside className="w-96 h-screen px-2 pt-1 pb-2  backdrop-blur z-0 overflow-hidden">
       <AnimatePresence mode="wait">
         {ActiveComponent && (
           <motion.div

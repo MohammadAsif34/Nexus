@@ -31,7 +31,7 @@ const NavigateTabs2 = () => {
   const ActiveComponent = TAB_COMPONENTS[activeTab] || Info;
 
   return (
-    <section className="flex-1 h-screen p-4 pl-2 bg-green-50">
+    <section className="flex-1 h-screen pt-3 pr-4 pb-2 bg-gr een-50">
       <div
         className="h-full overflow-hidden rounded-xl
                       border border-gray-200

@@ -36,7 +36,7 @@ const Notifications = () => {
       </div>
 
       {/* ===== Content ===== */}
-      <div className="flex-1 p-3 overflow-y-auto custom-scroll bg-white shadow rounded-xl">
+      <div className="flex-1 p-3 overflow-y-auto custom-scroll bg- white shadow rounded-xl">
         <AnimatePresence>
           {notifications.length === 0 ? (
             <motion.div

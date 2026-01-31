@@ -32,7 +32,7 @@ const Settings = () => {
   ];
   const { logout } = useAuth0();
   return (
-    <section className="h-full flex flex-col bg-green-50/40 cursor-default">
+    <section className="h-full flex flex-col cursor-default">
       {/* ===== Header ===== */}
       <div className="p-2 text-2xl font-semibold text-gray-800">Settings</div>
 

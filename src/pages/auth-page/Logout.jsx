@@ -3,8 +3,8 @@ import { User } from "lucide-react";
 import { Link } from "react-router-dom";
 const Logout = () => {
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
-      <div className="w-sm px-12 py-12 border border-gray-300 rounded-xl shadow-sm flex flex-col items-center gap-3">
+    <div className="w-screen h-screen flex justify-center items-center bg-[url(/bg-0.jpg)] bg-no-repeat bg-center bg-cover  ">
+      <div className="w-sm px-12 py-12 border bg-white border-gray-200 rounded-xl shadow-sm flex flex-col items-center gap-3">
         <div className="w-20 h-20 bg-gray-200 rounded-full flex justify-center items-center">
           <User size={32} />
         </div>

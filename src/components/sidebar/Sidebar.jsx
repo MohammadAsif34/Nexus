@@ -135,10 +135,10 @@ const UserProfile = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-14 text-gray-300 left-0 w-44 bg-white rounded-md shadow-lg border border-gray-200 overflow-hidden"
+            className="absolute bottom-14 text-gray-300 left-0 w-48 bg-white rounded-md shadow-lg border border-gray-200 overflow-hidden"
           >
             <MenuItem
-              icon={<User size={18} />}
+              icon={<User size={20} />}
               label="Profile"
               onClick={() => {
                 dispatch(setTabs("settings"));
@@ -146,12 +146,12 @@ const UserProfile = () => {
               }}
             />
             <MenuItem
-              icon={<Settings2 size={18} />}
+              icon={<Settings2 size={20} />}
               label="Settings"
               onClick={() => dispatch(setTabs("settings"))}
             />
             <MenuItem
-              icon={<Moon size={18} />}
+              icon={<Moon size={20} />}
               label="Dark mode"
               onClick={() => {
                 dispatch(setTabs("settings"));
@@ -159,13 +159,13 @@ const UserProfile = () => {
               }}
             />
 
-            <div className="border-t border-gray-300" />
+            <div className="border-t border-gray-200" />
 
             <button
               onClick={() => logout()}
-              className="w-full flex items-center gap-3 px-4 py-2 text-sm text-lack text-red-500 hover:bg-red-50"
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm text-lack text-red-500 hover:bg-red-50"
             >
-              <LogOut size={18} />
+              <LogOut size={20} />
               {isLoading ? (
                 <span className="inline-block w-5 h-5 border-2 border-red-500 rounded-full border-t-transparent animate-spin"></span>
               ) : (
@@ -191,7 +191,7 @@ const UserProfile = () => {
 const MenuItem = ({ icon, label, onClick }) => (
   <button
     onClick={onClick}
-    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
+    className="w-full flex items-center gap-3 px-4 py-3 text-[16px] text-gray-500 hover:bg-gray-100"
   >
     {icon}
     {label}

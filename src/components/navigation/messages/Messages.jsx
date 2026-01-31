@@ -14,14 +14,12 @@ const Messages = () => {
   return (
     <section className="w-full h-full  flex flex-col">
       {/* ===== Header ===== */}
-      <div className="p-2 text-2xl font-semibold text-gray-800 ">
-        Messages
-      </div>
+      <div className="p-2 text-2xl font-semibold text-gray-800 ">Messages</div>
 
-      <div className="flex-1 bg-white rounded-xl shadow">
+      <div className="flex-1 bg- white rounded-xl sha dow">
         {/* ===== Search ===== */}
         <div className="p-3 ">
-          <div className="relative py-1">
+          <div className="relative py-1 ">
             <Search
               size={16}
               className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400"
@@ -31,7 +29,7 @@ const Messages = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search messages"
-              className="w-full h-9 pl-8 pr-2 text-sm border border-gray-300 rounded-full
+              className="w-full h-9 pl-8 pr-2 text-sm border bg-white border-gray-300 rounded-full
             focus:outline-none focus:ring-1 focus:ring-green-400"
             />
           </div>

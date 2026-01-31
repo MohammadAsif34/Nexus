@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Bookmark,
   Ellipsis,
@@ -9,10 +9,15 @@ import {
   Search,
   Send,
   Video,
+  BookMarked,
+  Copy,
+  Reply,
+  Trash2,
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import Info from "../../components/component/Info";
 import { startCall } from "../../redux/slice/callSlice";
+import { addToSaved } from "../../redux/slice/savedSlice";
 // import { openMediaViewer } from "../../redux/slice/mediaViewer"; // optional
 
 /* ================= MAIN ================= */
@@ -40,7 +45,7 @@ export default ChatSection;
 const ChatHeader = ({ chat }) => {
   const dispatch = useDispatch();
   return (
-    <div className="h-16 px-4 border-b border-gray-200 flex items-center justify-between">
+    <div className="h-16  px-4 text-start  border-b border-gray-200 flex items-center justify-between">
       <div className="flex items-center gap-3">
         <div className="w-11 h-11 rounded-full overflow-hidden bg-gray-300">
           <img
@@ -89,26 +94,26 @@ const ChatHeader = ({ chat }) => {
 /* ================= MESSAGES ================= */
 
 const ChatMessages = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const myId = "user_1";
 
   const chat = [
     {
-      id: "1",
+      _id: "1",
       senderId: "user_2",
       type: "text",
       text: "Hi, how are you?",
       timestamp: "2026-01-23T10:00:10Z",
     },
     {
-      id: "2",
+      _id: "2",
       senderId: "user_1",
       type: "text",
       text: "I’m good! What about you?",
       timestamp: "2026-01-23T10:00:30Z",
     },
     {
-      id: "3",
+      _id: "3",
       senderId: "user_2",
       type: "photo",
       text: "asdjks",
@@ -116,7 +121,37 @@ const ChatMessages = () => {
       timestamp: "2026-01-23T10:01:00Z",
     },
     {
-      id: "4",
+      _id: "4",
+      senderId: "user_1",
+      type: "file",
+      fileName: "project-report.pdf",
+      fileSize: "1.2 MB",
+      timestamp: "2026-01-23T10:01:40Z",
+    },
+    {
+      _id: "5",
+      senderId: "user_2",
+      type: "text",
+      text: "Hi, how are you?",
+      timestamp: "2026-01-23T10:00:10Z",
+    },
+    {
+      _id: "6",
+      senderId: "user_1",
+      type: "text",
+      text: "I’m good! What about you?",
+      timestamp: "2026-01-23T10:00:30Z",
+    },
+    {
+      _id: "7",
+      senderId: "user_2",
+      type: "photo",
+      text: "asdjks",
+      url: "https://picsum.photos/300/200",
+      timestamp: "2026-01-23T10:01:00Z",
+    },
+    {
+      _id: "8",
       senderId: "user_1",
       type: "file",
       fileName: "project-report.pdf",
@@ -131,11 +166,11 @@ const ChatMessages = () => {
   };
 
   return (
-    <div className="flex-1 px-4 py-2 overflow-y-auto bg-gray-5">
+    <div className="flex-1  px-4 text-start  py-2 overflow-y-auto bg-gray-5 scroll-smooth">
       <div className="flex flex-col gap-2">
         {chat.map((msg) => (
           <MessageBubble
-            key={msg.id}
+            key={msg._id}
             msg={msg}
             isMine={msg.senderId === myId}
             onOpenMedia={openMedia}
@@ -149,8 +184,17 @@ const ChatMessages = () => {
 /* ================= MESSAGE BUBBLE ================= */
 
 const MessageBubble = ({ msg, isMine, onOpenMedia }) => {
+  const [open, setOpen] = useState(false);
   return (
-    <div className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
+    <div
+      className={`flex ${isMine ? "justify-end" : "justify-start"} group`}
+      onMouseLeave={() => setOpen(false)}
+    >
+      {isMine && (
+        <button className="mx-2 p-2 h-fit rounded-full  hover:bg-gray-200 hidden group-hover:inline">
+          <EllipsisVertical size={16} />
+        </button>
+      )}
       <div
         className={`max-w-[70%] rounded-lg px-3 py-2 text-sm
         ${isMine ? "bg-green-200" : "bg-gray-100 border border-gray-200"}`}
@@ -192,6 +236,50 @@ const MessageBubble = ({ msg, isMine, onOpenMedia }) => {
           {formatTime(msg.timestamp)}
         </span>
       </div>
+      {!isMine && (
+        <>
+          <button
+            className="mx-2 p-2 h-fit rounded-full  hover:bg-gray-200 hidden group-hover:inline"
+            onClick={() => setOpen((p) => !p)}
+          >
+            <EllipsisVertical size={16} />
+          </button>
+          {open && <MsgOption msg={msg} />}
+        </>
+      )}
+    </div>
+  );
+};
+
+const MsgOption = ({ msg }) => {
+  const btns = [
+    { _id: 1, label: "reply", icon: Reply },
+    { _id: 2, label: "saved", icon: BookMarked },
+    { _id: 3, label: "copy", icon: Copy },
+    { _id: 4, label: "message info", icon: InfoIcon },
+    { _id: 5, label: "delete", icon: Trash2, variant: "danger" },
+  ];
+  const dispatch = useDispatch();
+
+  return (
+    <div className="w-48 h-fit overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg flex flex-col py-1">
+      {btns.map(({ _id, label, icon: Icon, variant }) => (
+        <button
+          key={_id}
+          className={`
+            flex items-center gap-3 px-4 py-2 text-sm transition-colors cursor-pointer capitalize
+            ${
+              variant === "danger"
+                ? "text-red-600 hover:bg-red-50"
+                : "text-gray-700 hover:bg-gray-100"
+            }
+          `}
+          onClick={() => dispatch(addToSaved(msg))}
+        >
+          <Icon size={18} strokeWidth={2} />
+          <span>{label}</span>
+        </button>
+      ))}
     </div>
   );
 };
@@ -200,7 +288,7 @@ const MessageBubble = ({ msg, isMine, onOpenMedia }) => {
 
 const ChatSender = () => {
   return (
-    <div className="h-14 px-4 border-t border-gray-200 flex items-center gap-3">
+    <div className="h-14  px-4 text-start  border-t border-gray-200 flex items-center gap-3">
       <button className="p-2 hover:bg-gray-200 rounded-full">
         <Ellipsis size={20} />
       </button>

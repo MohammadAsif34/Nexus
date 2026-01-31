@@ -6,8 +6,8 @@ const Login = () => {
   const { loginWithRedirect, isLoading } = useAuth0();
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md px-10 py-8 bg-white border border-gray-200 rounded-xl shadow-sm">
+    <div className="w-screen h-screen flex items-center justify-center b g-gray-50 bg-[url(/bg-0.jpg)] bg-no-repeat bg-center bg-cover">
+      <div className="w-full max-w-md px-10 py-8 bg-white border border-gray-100 rounded-xl shadow">
         {/* Header */}
         <h1 className="text-center text-2xl font-semibold text-gray-800">
           Welcome Back
@@ -42,7 +42,7 @@ const Login = () => {
           <button
             type="button"
             disabled
-            className="w-full h-10 mt-6 bg-green-500 text-white  rounded-md cursor-not-allowed"
+            className="w-full h-10 mt-6 bg-green-500 text-white  rounded-md cursor-not-allowed!"
           >
             Log in
           </button>

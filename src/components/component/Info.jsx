@@ -2,7 +2,7 @@ import React from "react";
 
 const Info = () => {
   return (
-    <div className="flex-1 py-32 text-center bg-white/10 p-5">
+    <div className="flex-1 h-full text-center bg-white/10 p-5">
       <div>
         {/* Header */}
         <div className="mb-4">
@@ -61,7 +61,7 @@ const Info = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-6 pt-3 border-t border-gray-100 text-xs text-gray-500">
+        <div className="absolute bottom-4 left-0 w-full mt-6 pt-3 border-t border-gray-100 text-xs text-gray-500">
           Built using modern web technologies with a focus on performance,
           scalability, and user experience.
         </div>

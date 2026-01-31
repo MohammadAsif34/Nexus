@@ -3,40 +3,59 @@ import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
-      <div className="w-lg px-12 py-8 border border-gray-300 rounded-xl shadow-sm ">
-        <h1 className="text-center text-xl">Register Account</h1>
-        <p className="text-center mt-1 mb-6 text-gray-400">
+    <div className="w-screen h-screen flex justify-center items-center bg-[url(/bg-0.jpg)] bg-no-repeat bg-center bg-cover ">
+      <div className="w-full max-w-md px-10 py-8 border bg-white border-gray-300 rounded-xl shadow-sm ">
+        <h1 className="text-center text-2xl font-semibold">Register Account</h1>
+        <p className="text-center mt-1  text-gray-500">
           Sign up in to continue to Nexus
         </p>
-        <div className="w-72 mx-auto text-gray-500">
-          <form action="">
-            <label className=" ">Email</label>
-            <input
-              type="text"
-              name="email"
-              className="w-full h-10 border border-gray-300 mb-2 px-2 rounded-sm   text-gray-600 "
-              placeholder="email"
-            />
-            <label className=" ">Password</label>
-            <input
-              type="text"
-              name="password"
-              className="w-full h-10 border border-gray-300 px-2 rounded-sm   text-gray-600 "
-              placeholder="password"
-            />
-            <button className="w-full h-10 mt-6 text-white rounded-sm bg-green-500 hover:bg-green-600 transition-all duration-300">
-              Register
+        <div className=" mx-auto text-gray-500">
+          {/* Form */}
+          <form className="mt-6 space-y-3">
+            <div>
+              <label className="  font-medium text-gray-600">Email</label>
+              <input
+                type="email"
+                placeholder="you@example.com"
+                className="w-full h-10 mt-1 px-2  border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
+                disabled
+              />
+            </div>
+
+            <div>
+              <label className="  font-medium text-gray-600">Password</label>
+              <input
+                type="password"
+                placeholder="••••••••"
+                className="w-full h-10 mt-1 px-2  border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
+                disabled
+              />
+            </div>
+
+            {/* Disabled because Auth0 handles auth */}
+            <button
+              type="button"
+              disabled
+              className="w-full h-10 mt-6 bg-green-500 text-white  rounded-md cursor-not-allowed!"
+            >
+              Log in
             </button>
           </form>
-          <div className="my-8 relative">
-            <hr className="text-gray-300" />
-            <span className="  px-2 bg-white absolute left-1/2 top-1/2 -translate-1/2">
-              or
-            </span>
+
+          {/* Divider */}
+          <div className="my-6 flex items-center gap-3">
+            <hr className="flex-1 border-gray-300" />
+            <span className="  text-gray-400">OR</span>
+            <hr className="flex-1 border-gray-300" />
           </div>
-          <button className="  w-full p-2 rounded-sm bg-blue-400 text-white">
-            Register with Google
+
+          {/* Auth0 Login */}
+          <button
+            // onClick={() => loginWithRedirect()}
+            // disabled={isLoading}
+            className="w-full py-2  font-medium rounded-md bg-blue-500 text-white hover:bg-blue-600 transition disabled:opacity-60"
+          >
+            Continue with Google
           </button>
 
           <p className="mt-4   text-center">
