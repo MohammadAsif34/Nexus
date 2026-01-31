@@ -43,7 +43,7 @@ const HomePage = () => {
   }
 
   /* ===== Auth Guard ===== */
-  if (isAuthenticated) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
