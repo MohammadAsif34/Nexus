@@ -14,52 +14,54 @@ const Saved = () => {
   const [query, setQuery] = useState("");
 
   return (
-    <section className="h-full flex flex-col bg-white">
+    <section className="h-full flex flex-col ">
       {/* ===== Header ===== */}
-      <div className="px-4 py-3 text-xl font-semibold text-gray-800 border-b">
+      <div className="px-4 py-3 text-xl font-semibold text-gray-800 ">
         Saved
       </div>
 
-      {/* ===== Search ===== */}
-      <div className="px-4 py-2 border-b">
-        <div className="relative">
-          <Search
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-          />
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder={`Search saved ${active}`}
-            className="w-full h-9 pl-9 pr-3 text-sm
-                       border border-gray-300 rounded-md
+      <div className="flex-1 py-2 bg-white rounded-xl shadow">
+        {/* ===== Search ===== */}
+        <div className="px-4 py-2  ">
+          <div className="relative">
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={`Search saved ${active}`}
+              className="w-full h-9 pl-9 pr-3  text-sm
+                       border border-gray-300 rounded-full
                        focus:outline-none focus:ring-1 focus:ring-green-400"
-          />
+            />
+          </div>
         </div>
-      </div>
 
-      {/* ===== Tabs ===== */}
-      <div className="flex gap-2 px-4 py-2 border-b">
-        {TABS.map(({ id, label, icon: Icon }) => (
-          <TabButton
-            key={id}
-            active={active === id}
-            onClick={() => setActive(id)}
-            icon={<Icon size={16} />}
-          >
-            {label}
-          </TabButton>
-        ))}
-      </div>
+        {/* ===== Tabs ===== */}
+        <div className="flex gap-2 px-4 py-2 border-b border-gray-200">
+          {TABS.map(({ id, label, icon: Icon }) => (
+            <TabButton
+              key={id}
+              active={active === id}
+              onClick={() => setActive(id)}
+              icon={<Icon size={16} />}
+            >
+              {label}
+            </TabButton>
+          ))}
+        </div>
 
-      {/* ===== Content ===== */}
-      <div className="flex-1 overflow-y-auto custom-scroll p-4">
-        <AnimatePresence mode="wait">
-          {active === "messages" && <SavedMessages query={query} />}
-          {active === "files" && <SavedFiles query={query} />}
-          {active === "photos" && <SavedPhotos query={query} />}
-        </AnimatePresence>
+        {/* ===== Content ===== */}
+        <div className="flex-1 overflow-y-auto custom-scroll p-4">
+          <AnimatePresence mode="wait">
+            {active === "messages" && <SavedMessages query={query} />}
+            {active === "files" && <SavedFiles query={query} />}
+            {active === "photos" && <SavedPhotos query={query} />}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
@@ -73,7 +75,7 @@ const TabButton = ({ children, icon, active, onClick }) => (
   <motion.button
     onClick={onClick}
     whileTap={{ scale: 0.95 }}
-    className={`relative px-3 py-1.5 text-sm font-semibold rounded-md
+    className={`relative px-3 py-1.5 text-sm font-semibold rounded-full
       flex items-center gap-1.5 transition
       ${
         active
@@ -87,7 +89,7 @@ const TabButton = ({ children, icon, active, onClick }) => (
     {active && (
       <motion.span
         layoutId="savedTab"
-        className="absolute inset-0 rounded-md border border-green-400"
+        className="absolute inset-0 rounded-full border border-green-400"
       />
     )}
   </motion.button>

@@ -1,11 +1,27 @@
 import React, { useState } from "react";
 import { Edit, Save, X } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, parseCSSVariable } from "framer-motion";
 import { useAuth0 } from "@auth0/auth0-react";
+import { default_user } from "../../../../assets/defaultUser";
 
 const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
-  const { user } = useAuth0();
+  let { user } = useAuth0();
+  if (!user) user = default_user;
+  else
+    user = {
+      name: user.name,
+      nickname: user.nickname,
+      bio: "I'm Happy 😊",
+      picture: user.picture,
+      email: user.email, // req.
+      email_verified: user.email_verified,
+      sub: user.sub, //req. *
+      phone: user.phone_number,
+      password: null, // req. *
+      updatedAt: user.updated_at,
+      createdAt: user.updated_at,
+    };
 
   return (
     <section className="h-full flex flex-col bg-white">
@@ -38,7 +54,7 @@ const Profile = () => {
           <Input label="Name" name="name" disabled={!isEdit} user={user} />
           <Input
             label="Nick Name"
-            name="nick_name"
+            name="nickname"
             disabled={!isEdit}
             user={user}
           />
@@ -91,7 +107,7 @@ const Input = ({ label, name, disabled, user }) => (
     <label className="text-sm font-semibold text-gray-600">{label}</label>
     <input
       name={name}
-      value={user[name]}
+      value={user[name] ? user[name] : ""}
       disabled={disabled}
       className={`h-9 px-3 rounded-md text-sm outline-none transition
         ${
@@ -103,11 +119,13 @@ const Input = ({ label, name, disabled, user }) => (
   </div>
 );
 
-const Textarea = ({ label, disabled }) => (
+const Textarea = ({ label, disabled, name, user }) => (
   <div className="flex flex-col gap-1">
     <label className="text-sm font-semibold text-gray-600">{label}</label>
     <textarea
       rows={3}
+      name={name}
+      value={user[name]}
       disabled={disabled}
       className={`px-3 py-2 rounded-md text-sm outline-none transition resize-none
         ${

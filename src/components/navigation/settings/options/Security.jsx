@@ -73,7 +73,7 @@ const SecurityItem = ({ icon: Icon, title, desc, action, danger = false }) => {
   return (
     <motion.div
       whileHover={{ backgroundColor: "#f3f4f6" }}
-      className="flex items-start gap-4 p-4 rounded-lg border border-gray-200"
+      className="flex items-start gap-4 p-4 rounded-lg border border-gray-200 cursor-default"
     >
       <Icon size={20} className={danger ? "text-red-500" : "text-green-500"} />
 
@@ -91,7 +91,8 @@ const SecurityItem = ({ icon: Icon, title, desc, action, danger = false }) => {
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className={`px-3 py-1.5 text-xs font-semibold rounded-md transition
+        disabled
+        className={`px-3 py-1.5 text-xs font-semibold rounded-md transition cursor-no-drop!
           ${
             danger
               ? "bg-red-100 text-red-600 hover:bg-red-200"

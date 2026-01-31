@@ -29,14 +29,14 @@ const Notifications = () => {
   };
 
   return (
-    <section className="h-full flex flex-col bg-white">
+    <section className="h-full flex flex-col">
       {/* ===== Header ===== */}
-      <div className="px-3 py-3 text-xl font-semibold text-gray-800 border-b">
+      <div className="px-3 py-3 text-xl font-semibold text-gray-800 ">
         Notifications
       </div>
 
       {/* ===== Content ===== */}
-      <div className="flex-1 p-3 overflow-y-auto custom-scroll">
+      <div className="flex-1 p-3 overflow-y-auto custom-scroll bg-white shadow rounded-xl">
         <AnimatePresence>
           {notifications.length === 0 ? (
             <motion.div

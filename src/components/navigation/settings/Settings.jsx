@@ -12,10 +12,14 @@ import {
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { setTabs2 } from "../../../redux/slice/tabSlice";
+import { useAuth0 } from "@auth0/auth0-react";
+import { default_user } from "../../../assets/defaultUser";
 
 /* ================= Settings ================= */
 
 const Settings = () => {
+  let { user } = useAuth0();
+  if (!user) user = default_user;
   const dispatch = useDispatch();
 
   const items = [
@@ -28,9 +32,9 @@ const Settings = () => {
   ];
 
   return (
-    <section className="h-full flex flex-col bg-green-50/40">
+    <section className="h-full flex flex-col bg-green-50/40 cursor-default">
       {/* ===== Header ===== */}
-      <div className="px-3 py-3 text-xl font-semibold text-gray-800 border-b">
+      <div className="px-3 py-3 text-xl font-semibold text-gray-800">
         Settings
       </div>
 
@@ -39,20 +43,22 @@ const Settings = () => {
         <motion.div
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.99 }}
-          className="relative flex items-center gap-4 p-4 mb-3
+          className="relative flex items-center gap-4 p-4 mb-3 shadow
                      bg-white/60 backdrop-blur-xl rounded-lg
                      hover:bg-white/80 transition"
         >
           <div className="w-14 h-14 rounded-full overflow-hidden bg-gray-300 shrink-0">
             <img
-              src="/default_avatar.png"
+              src={user?.picture}
               alt="User avatar"
               className="w-full h-full object-cover"
             />
           </div>
 
           <div className="flex-1">
-            <p className="font-semibold text-gray-700">Mohammad Asif</p>
+            <p className="font-semibold text-gray-700">
+              {User.name || "Full name"}
+            </p>
             <span className="text-xs text-gray-400">View & edit profile</span>
           </div>
 

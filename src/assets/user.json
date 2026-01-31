@@ -1,8 +1,21 @@
 [
   {
+    "id": "",
+    "name": "Shadow",
+    "nickname": "shadowforever34",
+    "picture": "https://lh3.googleusercontent.com/a/ACg8ocKndv13EIsEZTxwyeCCVH15dACsy8BpmPvX0tvQDQbA6_DbYZU=s96-c",
+    "email": "shadowforever34@gmail.com",
+    "updated_at": "2026-01-31T14:36:33.648Z",
+
+    "email_verified": true,
+    "given_name": "Shadow",
+    "sub": "google-oauth2|100253581227539375343"
+  },
+  {
     "id": "u1",
     "name": "Aarav Sharma",
     "photo": "/avatars/aarav.jpg",
+
     "lastMessage": "Okay, see you at 6 PM 👍",
     "lastMessageTime": "2026-01-23T12:30:00Z",
     "unreadCount": 2,
