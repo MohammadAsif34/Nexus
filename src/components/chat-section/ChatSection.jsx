@@ -30,7 +30,7 @@ const ChatSection = () => {
   }
 
   return (
-    <div className="h-full flex flex-col bg-white">
+    <div className="h-full flex flex-col bg-white/50 backdrop-blur-2xl">
       <ChatHeader chat={currChat} />
       <ChatMessages />
       <ChatSender />
@@ -158,6 +158,14 @@ const ChatMessages = () => {
       fileSize: "1.2 MB",
       timestamp: "2026-01-23T10:01:40Z",
     },
+    {
+      _id: "8",
+      senderId: "user_2",
+      type: "file",
+      fileName: "project-report.pdf",
+      fileSize: "1.2 MB",
+      timestamp: "2026-01-23T10:01:40Z",
+    },
   ];
 
   const openMedia = (type, data) => {
@@ -166,7 +174,7 @@ const ChatMessages = () => {
   };
 
   return (
-    <div className="flex-1  px-4 text-start  py-2 overflow-y-auto bg-gray-5 scroll-smooth">
+    <div className="flex-1  px-4 text-start  py-2 overflow-y-auto bg-gray-5 scroll-smooth  custom-scroll">
       <div className="flex flex-col gap-2">
         {chat.map((msg) => (
           <MessageBubble
@@ -187,17 +195,23 @@ const MessageBubble = ({ msg, isMine, onOpenMedia }) => {
   const [open, setOpen] = useState(false);
   return (
     <div
-      className={`flex ${isMine ? "justify-end" : "justify-start"} group`}
+      className={`flex ${isMine ? "justify-end" : "justify-start"} group relative `}
       onMouseLeave={() => setOpen(false)}
     >
       {isMine && (
-        <button className="mx-2 p-2 h-fit rounded-full  hover:bg-gray-200 hidden group-hover:inline">
-          <EllipsisVertical size={16} />
-        </button>
+        <>
+          <button
+            className="mx-2 p-2 h-fit  rounded-full  hover:bg-gray-200 hidden group-hover:inline-block relative"
+            onClick={() => setOpen((p) => !p)}
+          >
+            <EllipsisVertical size={16} />
+          </button>
+          {open && <MsgOption msg={msg} isMine={isMine} />}
+        </>
       )}
       <div
         className={`max-w-[70%] rounded-lg px-3 py-2 text-sm
-        ${isMine ? "bg-green-200" : "bg-gray-100 border border-gray-200"}`}
+        ${isMine ? "bg-blue-200" : "bg-green-200 bor der bo rder-gray-200"}`}
       >
         {msg.type === "text" && <p>{msg.text}</p>}
 
@@ -218,7 +232,9 @@ const MessageBubble = ({ msg, isMine, onOpenMedia }) => {
             className="flex items-center gap-2 cursor-pointer text-blue-600"
             onClick={() => onOpenMedia("file", msg)}
           >
-            <div className="p-3 bg-green-100 rounded-md">
+            <div
+              className={`p-3 ${isMine ? "bg-blue-100" : "bg-green-100"} rounded-md`}
+            >
               <p className="">
                 <File className="inline mr-2 text-black" />
                 {msg.fileName}
@@ -251,7 +267,7 @@ const MessageBubble = ({ msg, isMine, onOpenMedia }) => {
   );
 };
 
-const MsgOption = ({ msg }) => {
+const MsgOption = ({ msg, isMine }) => {
   const btns = [
     { _id: 1, label: "reply", icon: Reply },
     { _id: 2, label: "saved", icon: BookMarked },
@@ -262,7 +278,9 @@ const MsgOption = ({ msg }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="w-48 h-fit overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg flex flex-col py-1">
+    <div
+      className={`w-48 h-fit overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg flex flex-col py-1 absolute top-0  ${isMine ? "right-0" : "left-0"}  `}
+    >
       {btns.map(({ _id, label, icon: Icon, variant }) => (
         <button
           key={_id}
@@ -287,21 +305,24 @@ const MsgOption = ({ msg }) => {
 /* ================= SENDER ================= */
 
 const ChatSender = () => {
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
-    <div className="h-14  px-4 text-start  border-t border-gray-200 flex items-center gap-3">
+    <div className="h-16  px-4 text-start  border-t border-gray-200 flex items-center gap-3">
       <button className="p-2 hover:bg-gray-200 rounded-full">
         <Ellipsis size={20} />
       </button>
 
-      <form className="flex-1 flex gap-2">
+      <form className="flex-1 flex gap-2" onSubmit={handleFormSubmit}>
         <input
           type="text"
           placeholder="Type a message"
-          className="flex-1 h-9 px-3 rounded-md border border-gray-300 text-sm focus:outline-none"
+          className="flex-1 h-10 px-3 rounded-md border border-gray-300 text-sm focus:outline-none"
         />
         <button
           type="submit"
-          className="px-3 bg-green-500 rounded-md text-white"
+          className="px-6 bg-blue-500 rounded-md text-white"
         >
           <Send size={20} />
         </button>

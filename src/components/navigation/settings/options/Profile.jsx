@@ -24,7 +24,7 @@ const Profile = () => {
     };
 
   return (
-    <section className="h-full flex flex-col bg-white">
+    <section className="h-full flex flex-col bg-white/50 backdrop-blur-2xl">
       {/* ===== Header ===== */}
       <div className="px-4 py-3 text-xl font-semibold text-gray-800 border-b border-gray-200">
         Profile

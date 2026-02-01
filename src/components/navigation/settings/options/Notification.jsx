@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 const Notification = () => {
   return (
-    <div className="h-full flex flex-col cursor-default ">
+    <div className="h-full flex flex-col cursor-default bg-white/50 backdrop-blur-2xl ">
       {/* <div className="py-2 px-4 font-semibold text-2xl text-gray-800 border-b border-gray-200"> */}
-      <div className="max -w-md bg- white rounded-xl shad not-visited:ow-lg p-5">
+      <div className="max -w-md  rounded-xl shad not-visited:ow-lg p-5">
         <h2 className="text-lg font-semibold mb-4">Notification Settings</h2>
 
         {/* Messages */}
@@ -49,7 +49,7 @@ function SettingRow({ label }) {
   const [isToggle, setIsToggle] = useState(false);
   return (
     <div className="flex items-center justify-between">
-      <span className=" text-gray-500">{label}</span>
+      <span className=" text-gray-700">{label}</span>
 
       {/* Toggle Switch */}
       <div

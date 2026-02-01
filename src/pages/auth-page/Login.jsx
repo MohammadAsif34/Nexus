@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
+const defalt_form = { email: "asif@gmail.com", password: "" };
 const Login = () => {
   const { loginWithRedirect, isLoading } = useAuth0();
+  const [form, setForm] = useState(defalt_form);
+
+  const handleFormChange = (e) => {
+    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+  };
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const url = "http://localhost:8800/api/login";
+      const res = await axios.post(url, form, {
+        headers: { "Content-Type": "Application/json" },
+        withCredentials: true,
+      });
+      console.log("login res", res.data);
+      if (res.data.status === "success") {
+        window.location.href = "/";
+      }
+    } catch (error) {
+      console.log("login error : ", error.message);
+    }
+    console.log(form);
+    setForm(defalt_form);
+  };
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center b g-gray-50 bg-[url(/bg-0.jpg)] bg-no-repeat bg-center bg-cover">
-      <div className="w-full max-w-md px-10 py-8 bg-white border border-gray-100 rounded-xl shadow">
+    <div className="w-screen h-screen flex items-center justify-center b g-gray-50 bg-[url(/bg-00.png)] bg-no-repeat bg-center bg-cover">
+      <div className="w-full max-w-md px-10 py-8 bg-white/50 border border-gray-100 backdrop-blur-2xl rounded-xl shadow">
         {/* Header */}
         <h1 className="text-center text-2xl font-semibold text-gray-800">
           Welcome Back
@@ -17,14 +42,16 @@ const Login = () => {
         </p>
 
         {/* Form */}
-        <form className="mt-6 space-y-3">
+        <form className="mt-6 space-y-3" onSubmit={handleFormSubmit}>
           <div>
             <label className="  font-medium text-gray-600">Email</label>
             <input
               type="email"
+              name="email"
+              value={form.email}
+              onChange={handleFormChange}
               placeholder="you@example.com"
               className="w-full h-10 mt-1 px-2  border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
-              disabled
             />
           </div>
 
@@ -32,17 +59,18 @@ const Login = () => {
             <label className="  font-medium text-gray-600">Password</label>
             <input
               type="password"
+              name="password"
+              value={form.password}
+              onChange={handleFormChange}
               placeholder="••••••••"
               className="w-full h-10 mt-1 px-2  border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
-              disabled
             />
           </div>
 
           {/* Disabled because Auth0 handles auth */}
           <button
-            type="button"
-            disabled
-            className="w-full h-10 mt-6 bg-green-500 text-white  rounded-md cursor-not-allowed!"
+            type="submit"
+            className="w-full h-10 mt-6 bg-green-500 text-white  rounded-md "
           >
             Log in
           </button>
@@ -65,7 +93,7 @@ const Login = () => {
         </button>
 
         {/* Footer */}
-        <p className="mt-4   text-center text-gray-500">
+        <p className="mt-8  text-xs text-center text-gray-500">
           Don’t have an account?{" "}
           <Link to="/register" className="text-blue-500 hover:underline">
             Register

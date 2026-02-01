@@ -80,8 +80,8 @@ const NotificationCard = ({ data, onDelete }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -40 }}
       transition={{ duration: 0.2 }}
-      className="relative p-3 rounded-md border border-gray-200 bg-gray-50
-                 hover:bg-gray-100 group"
+      className="relative p-3 rounded-md border border-gray-200 bg-white/50
+                 hover:bg-white/70 cursor-default group"
     >
       {/* Delete Button */}
       <button

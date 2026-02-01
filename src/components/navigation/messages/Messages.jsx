@@ -39,13 +39,13 @@ const Messages = () => {
         <div className="flex-1 overflow-y-auto custom-scroll px-1 pb-2">
           {/* ===== Favorites ===== */}
           <Section title="Favorites">
-            <UserCard />
+            {/* <UserCard /> */}
           </Section>
 
           {/* ===== Direct Messages ===== */}
           <div className="mt-3">
             <div className="px-2 py-2 flex items-center gap-2 sticky top-0 z-10">
-              <h3 className="flex-1 text-xs uppercase tracking-wider font-semibold text-gray-400 border-b border-gray-200 pb-0.5">
+              <h3 className="flex-1 text-xs uppercase tracking-wider font-semibold text-white border-b border-gray-200 pb-0.5">
                 Direct Messages
               </h3>
 
@@ -95,7 +95,7 @@ export default Messages;
 
 const Section = ({ title, children }) => (
   <div className="mb-3">
-    <h3 className="mx-2 mb-1 pb-0.5 text-xs uppercase tracking-wider font-semibold text-gray-400 border-b border-gray-200">
+    <h3 className="mx-2 mb-1 pb-0.5 text-xs uppercase tracking-wider font-semibold text-white border-b border-gray-200">
       {title}
     </h3>
     <div className="px-1">{children}</div>

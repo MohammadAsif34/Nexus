@@ -48,7 +48,7 @@ const HomePage = () => {
   }
 
   return (
-    <main className="w-screen h-screen flex bg-[url(/bg-0.jpg)] bg-no-repeat bg-center bg-cover overflow-hidden">
+    <main className="w-screen h-screen flex bg-[url(/bg-00.png)] bg-no-repeat bg-center bg-cover overflow-hidden">
       {/* Sidebar */}
       <Sidebar />
 

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-[url(/bg-0.jpg)] bg-no-repeat bg-center bg-cover ">
-      <div className="w-full max-w-md px-10 py-8 border bg-white border-gray-300 rounded-xl shadow-sm ">
+    <div className="w-screen h-screen flex justify-center items-center bg-[url(/bg-00.png)] bg-no-repeat bg-center bg-cover ">
+      <div className="w-full max-w-md px-10 py-8 border bg-white/50 backdrop-blur-3xl border-gray-300 rounded-xl shadow-sm ">
         <h1 className="text-center text-2xl font-semibold">Register Account</h1>
         <p className="text-center mt-1  text-gray-500">
           Sign up in to continue to Nexus
@@ -58,7 +58,7 @@ const Register = () => {
             Continue with Google
           </button>
 
-          <p className="mt-4   text-center">
+          <p className="mt-8 text-xs  text-center">
             Already have an account ?{" "}
             <Link to={"/login"} className="text-blue-500 underline">
               Login

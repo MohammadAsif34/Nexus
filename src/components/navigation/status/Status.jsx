@@ -57,17 +57,17 @@ const Status = () => {
 
           {/* =============== create status ================  */}
           <div className="m overflow-y-auto">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 hover:bg-gray-100 cursor-no-drop">
+            <div className="flex items-center justify-between px-4 py-3  border-gray-200 hover:bg-white/70 rounded-xl cursor-no-drop">
               <div className="flex items-center gap-3">
                 <div className="p-4 bg-gray-200 rounded-full">
                   <Plus size={22} />
                 </div>
-
                 <p className="text-sm font-medium text-gray-800">
                   Add to your Story
                 </p>
               </div>
             </div>
+            <hr className="text-white mt-1" />
 
             {/* =========== status list ================  */}
             {statuses.map((status, idx) => (
@@ -92,7 +92,7 @@ const StatusCard = ({ statuses, status, idx }) => {
   return (
     <>
       <div
-        className="flex items-center justify-between my-1.5 px-4 py-3 bg-white rounded-lg hover:bg-gray-100 cursor-pointer"
+        className="flex items-center justify-between my-1.5 px-4 py-3 bg-white/50 backdrop-blur-2xl rounded-lg hover:bg-white/70 cursor-pointer"
         onClick={() =>
           dispatch(
             openStatusViewer({
