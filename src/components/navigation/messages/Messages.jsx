@@ -3,9 +3,14 @@ import { motion } from "framer-motion";
 import { CirclePlus, Search } from "lucide-react";
 import UserCard from "./UserCard";
 import users from "../../../assets/user.json";
+import { useDispatch, useSelector } from "react-redux";
+import { setToptabs } from "../../../redux/slice/tabSlice";
 
 const Messages = () => {
   const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const tabs = useSelector((s) => s.tab);
+  console.log(tabs);
 
   const filteredUsers = users.filter((u) =>
     u.name?.toLowerCase().includes(query.toLowerCase()),
@@ -38,9 +43,7 @@ const Messages = () => {
         {/* ===== Chat List ===== */}
         <div className="flex-1 overflow-y-auto custom-scroll px-1 pb-2">
           {/* ===== Favorites ===== */}
-          <Section title="Favorites">
-            {/* <UserCard /> */}
-          </Section>
+          <Section title="Favorites">{/* <UserCard /> */}</Section>
 
           {/* ===== Direct Messages ===== */}
           <div className="mt-3">
@@ -48,11 +51,12 @@ const Messages = () => {
               <h3 className="flex-1 text-xs uppercase tracking-wider font-semibold text-white border-b border-gray-200 pb-0.5">
                 Direct Messages
               </h3>
-
+              {/* ================ add new user button ===================== */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 className="p-1 rounded-full bg-green-500 text-white hover:bg-green-600"
+                onClick={() => dispatch(setToptabs("add_new_users"))}
               >
                 <CirclePlus size={22} />
               </motion.button>

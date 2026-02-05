@@ -1,27 +1,35 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import useGoogleLogin from "../../hooks/HandleGoogleLogin";
+import { setAuthenticated, setUser } from "../../redux/slice/userSlice";
+import { loginAPI } from "../../api/APIs";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const defalt_form = { email: "asif@gmail.com", password: "" };
+
 const Login = () => {
+  const dispatch = useDispatch();
   const { loginWithRedirect, isLoading } = useAuth0();
+  const { startGoogleLogin, syncWithBackend } = useGoogleLogin();
+  const navigate = useNavigate();
   const [form, setForm] = useState(defalt_form);
 
   const handleFormChange = (e) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
   };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:8800/api/login";
-      const res = await axios.post(url, form, {
-        headers: { "Content-Type": "Application/json" },
-        withCredentials: true,
-      });
-      console.log("login res", res.data);
-      if (res.data.status === "success") {
-        window.location.href = "/";
+      const res = await loginAPI(form);
+      // console.log("login res", res);
+      if (res.success === true) {
+        dispatch(setAuthenticated());
+        dispatch(setUser(res.data));
+        navigate("/");
       }
     } catch (error) {
       console.log("login error : ", error.message);
@@ -85,7 +93,7 @@ const Login = () => {
 
         {/* Auth0 Login */}
         <button
-          onClick={() => loginWithRedirect()}
+          onClick={startGoogleLogin}
           disabled={isLoading}
           className="w-full py-2  font-medium rounded-md bg-blue-500 text-white hover:bg-blue-600 transition disabled:opacity-60"
         >

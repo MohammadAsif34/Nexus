@@ -14,6 +14,8 @@ import { useDispatch } from "react-redux";
 import { setTabs2 } from "../../../redux/slice/tabSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import { default_user } from "../../../assets/defaultUser";
+import { logoutAPI } from "../../../api/APIs";
+import { clearUser } from "../../../redux/slice/userSlice";
 
 /* ================= Settings ================= */
 
@@ -93,7 +95,10 @@ const Settings = () => {
           className="w-full flex items-center gap-2 px-4 py-2
                      text-sm font-semibold text-red-500
                      rounded-md hover:bg-red-100 transition"
-          onClick={() => logout()}
+          onClick={() => {
+            dispatch(clearUser());
+            logoutAPI();
+          }}
         >
           <LogOut size={18} />
           Log out

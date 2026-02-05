@@ -3,10 +3,12 @@ import { Edit, Save, X } from "lucide-react";
 import { motion, parseCSSVariable } from "framer-motion";
 import { useAuth0 } from "@auth0/auth0-react";
 import { default_user } from "../../../../assets/defaultUser";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
-  let { user } = useAuth0();
+  // let { user } = useAuth0();
+  let { user } = useSelector((s) => s.user);
   if (!user) user = default_user;
   else
     user = {
@@ -107,7 +109,7 @@ const Input = ({ label, name, disabled, user }) => (
     <label className="text-sm font-semibold text-gray-600">{label}</label>
     <input
       name={name}
-      value={user[name] ? user[name] : ""}
+      value={user[name]}
       disabled={disabled}
       className={`h-9 px-3 rounded-md text-sm outline-none transition
         ${
@@ -115,6 +117,7 @@ const Input = ({ label, name, disabled, user }) => (
             ? "border border-gray-200 bg-gray-50 text-gray-500"
             : "border-2 border-gray-400 focus:ring-2 ring-green-300"
         }`}
+      placeholder={label}
     />
   </div>
 );
